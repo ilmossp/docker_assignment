@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: sql
+      POSTGRES_DB: cars
+    networks:
+      - my-network
+  backend:
+    image: ilmossp/car_app_spring:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+    depends_on:
+      - db
+  frontend:
+    image: ilmossp/car_app_react:latest
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+networks:
+  my-network:
